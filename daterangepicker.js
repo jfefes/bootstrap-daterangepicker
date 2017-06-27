@@ -912,20 +912,34 @@
                 if (this.timePicker) {
                     if (this.startDate.isSame(this.ranges[range][0]) && this.endDate.isSame(this.ranges[range][1])) {
                         customRange = false;
-                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')')
-                            .addClass('active').html();
+                        if (this.chosenLabel != "Custom Range") {
+                          this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')')
+                              .addClass('active').html();
+                        }
+
+                        if (this.chosenLabel == this.container.find('.ranges li:eq(' + i + ')')[0].innerHTML){
+                          this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')')
+                              .addClass('active').html();
+                        }
                     }
                 } else {
                     //ignore times when comparing dates if time picker is not enabled
                     if (this.startDate.format('YYYY-MM-DD') == this.ranges[range][0].format('YYYY-MM-DD') && this.endDate.format('YYYY-MM-DD') == this.ranges[range][1].format('YYYY-MM-DD')) {
                         customRange = false;
-                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')')
-                            .addClass('active').html();
+                        if (this.chosenLabel != "Custom Range") {
+                          this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')')
+                              .addClass('active').html();
+                        }
+
+                        if (this.chosenLabel == this.container.find('.ranges li:eq(' + i + ')')[0].innerHTML){
+                          this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')')
+                              .addClass('active').html();
+                        }
                     }
                 }
                 i++;
             }
-            if (customRange) {
+            if (this.chosenLabel == "Custom Range") {
                 this.chosenLabel = this.container.find('.ranges li:last').addClass('active').html();
                 this.showCalendars();
             }
