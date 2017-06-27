@@ -5,8 +5,22 @@
 * @copyright: Copyright (c) 2012-2014 Dan Grossman. All rights reserved.
 * @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
 * @website: http://www.improvely.com/
+*
+* Modified for Brand Networks by James Fefes
+* Within Analyze, the Reporting Date Range Picker is used, but we need to persist the chosenLabel
+* in the event that the user clicks a preset date range, and then creates/edits a scheduled report.
+*
+* Example: On the 8th of the month, a user selects "Last 7 days", which changes the Datepicker to be
+* the 1st of the month through the 7th. This satisfies the requirements for Last 7 days, but also for
+* Month-to-Date. Since Dan Grossman's original code would iterate through these preset dates, the "selectd"
+* result we would store would be Month-to-Date, which is incorrect. If a user created a report like this,
+* they would have to go back to the report on a different date and fix it.
+*
+* Later versions of Dan Grossman's code removed some functions and opted to instead include them in the
+* initialization of the Datepicker. This did not work for us either, since we had an Angular watcher call
+* these functions. In lieu of being able to upgrade to a newer versions, we instead forked and edited the
+* current version we were using. See ticket MI-667 
 
-* Modified by James Fefes
 */
 
 (function(root, factory) {
@@ -911,16 +925,11 @@
                 this.showCalendars();
             }
             else{
-                var customRange = true;
                 var i = 0;
                 for (var range in this.ranges) {
-                    //ignore times when comparing dates if time picker is not enabled
-                    if (this.startDate.format('YYYY-MM-DD') == this.ranges[range][0].format('YYYY-MM-DD') && this.endDate.format('YYYY-MM-DD') == this.ranges[range][1].format('YYYY-MM-DD')) {
+                    label = this.container.find('.ranges li:eq(' + i + ')')[0].innerHTML;
+                    if (label == this.chosenLabel) {
                         this.container.find('.ranges li:eq(' + i + ')').addClass('active');
-                        customRange = false;
-                        if (this.chosenLabel == "Custom Range") {
-                          this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')').addClass('active').html();
-                        }
                     }
                 i++;
                 }
