@@ -7,6 +7,8 @@
 * @website: http://www.improvely.com/
 *
 * Modified for Brand Networks by James Fefes
+*
+*
 * Within Analyze, the Reporting Date Range Picker is used, but we need to persist the chosenLabel
 * in the event that the user clicks a preset date range, and then creates/edits a scheduled report.
 *
@@ -19,7 +21,7 @@
 * Later versions of Dan Grossman's code removed some functions and opted to instead include them in the
 * initialization of the Datepicker. This did not work for us either, since we had an Angular watcher call
 * these functions. In lieu of being able to upgrade to a newer versions, we instead forked and edited the
-* current version we were using. See ticket MI-667 
+* current version we were using. See ticket MI-667
 
 */
 
